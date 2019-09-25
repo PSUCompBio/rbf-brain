@@ -1,5 +1,7 @@
 # rbf-brain
 
+## To run go to:  ~/PyGeM/tutorials/
+
 Additional Files for the RBF code
 
 RBFfinal.ipynb: Edited RBF notebook.

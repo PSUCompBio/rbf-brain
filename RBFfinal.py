@@ -18,14 +18,14 @@ path, filename = os.path.split(full_path)
 
 
 params = RBFParameters()
-params.read_parameters(filename=path +  './../tests/test_datasets/parameters_rbf_custom.prm')
+params.read_parameters('../tests/test_datasets/parameters_rbf_custom.prm')
 
 
 # In[2]:
 
 
 vtk_handler = VtkHandler()
-mesh = vtk_handler.parse(path  + './../tests/test_datasets/Merged.vtk')
+mesh = vtk_handler.parse('../tests/test_datasets/Merged.vtk')
 
 
 # In[4]:
