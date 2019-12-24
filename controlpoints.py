@@ -1,5 +1,32 @@
-fr = open('model.stl', 'r')
-fw = open('parameters.prm', 'w')
+
+import sys
+import argparse
+
+
+
+################# CLI ARGUMENT CONFIG ##################
+# Setting up Argument parsing
+parser = argparse.ArgumentParser(description='A Utility package file to generate parameters file which is used by RBF Scaling Code')
+parser.add_argument('--input', default=None, type=str, help="Path to your STL (Model.stl)")
+parser.add_argument('--output', default=None, type=str, help="Path to your Parameter File (parameters.prm)");
+
+args = parser.parse_args()
+
+#########################################################
+
+# If arguments are invalid or none then exit the script with error !
+
+if (args.input  == None or args.output == None):
+    parser.print_help()
+    sys.exit(0)
+
+input_file = args.input
+output_file = args.output
+
+
+
+fr = open(input_file, 'r')
+fw = open(output_file, 'w')
 fw.write("[Radial Basis Functions]\n")
 fw.write("basis function: polyharmonic_spline\n")
 fw.write("radius: 2\n")

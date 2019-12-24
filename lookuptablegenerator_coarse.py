@@ -1,4 +1,29 @@
-fmorphed = open('coarse_mesh_morphed.vtk', 'r') #need a generic name here like mesh.vtk
+
+import sys
+import argparse
+
+
+
+################# CLI ARGUMENT CONFIG ##################
+# Setting up Argument parsing
+parser = argparse.ArgumentParser(description='A Utility package to generate centroid text data from Coarse Mesh Morphed VTK')
+parser.add_argument('--input', default=None, type=str, help="Path to your Morphed Mesh VTK")
+parser.add_argument('--output', default=None, type=str, help="Path to save your Centroid Table Text Data");
+
+args = parser.parse_args()
+
+#########################################################
+
+# If arguments are invalid or none then exit the script with error !
+
+if (args.input  == None or args.output == None):
+    parser.print_help()
+    sys.exit(0)
+
+morphed_mesh_vtk_file_path = args.input
+centroid_table_text_file_path = args.output
+
+fmorphed = open(morphed_mesh_vtk_file_path, 'r') #need a generic name here like mesh.vtk
 foriginal = open('centroid_coarse.txt', 'r')
 waste = fmorphed.readline()
 waste = fmorphed.readline()
@@ -106,7 +131,7 @@ for k in range(cells):
     oldcentroid[k][2] = float(s)
 fmorphed.close()
 foriginal.close()
-fcentroid = open('centroidtable_coarse.txt', 'w') #need another generic name here like centroidtable.txt
+fcentroid = open(centroid_table_text_file_path, 'w') #need another generic name here like centroidtable.txt
 for i in range(cells):
     fcentroid.write("%d %f %f %f %f %f %f\n" % (i+1, newcentroid[i][1], newcentroid[i][2], newcentroid[i][3], oldcentroid[i][0], oldcentroid[i][1], oldcentroid[i][2]))
 fcentroid.close()

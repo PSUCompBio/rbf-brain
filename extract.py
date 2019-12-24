@@ -5,11 +5,36 @@
 
 #### import the simple module from the paraview
 from paraview.simple import *
+import sys
+import argparse
+
+
+
+################# CLI ARGUMENT CONFIG ##################
+# Setting up Argument parsing
+parser = argparse.ArgumentParser(description='A Utility package to generate STL from PLY file')
+parser.add_argument('--input', default=None, type=str, help="Path to your PLY (Model.ply)")
+parser.add_argument('--output', default=None, type=str, help="Path to your output STL (Model.stl)");
+
+args = parser.parse_args()
+
+#########################################################
+
+# If arguments are invalid or none then exit the script with error !
+
+if (args.input  == None or args.output == None):
+    parser.print_help()
+    sys.exit(0)
+
+input_file = args.input
+output_file = args.output
+
+
 #### disable automatic camera reset on 'Show'
 paraview.simple._DisableFirstRenderCameraReset()
 
 # create a new 'PLY Reader'
-modelply = PLYReader(FileNames=['model.ply'])
+modelply = PLYReader(FileNames=[input_file])
 
 # get active view
 renderView1 = GetActiveViewOrCreate('RenderView')
@@ -623,7 +648,7 @@ Hide(modelply, renderView1)
 renderView1.Update()
 
 # save data
-SaveData('model.stl', proxy=extractSurface1, FileType='Ascii',
+SaveData(output_file, proxy=extractSurface1, FileType='Ascii',
     WriteTimeSteps=0)
 
 #### saving camera placements for all active views
