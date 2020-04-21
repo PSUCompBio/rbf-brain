@@ -9,6 +9,32 @@ from pygem import RBFParameters, RBF, StlHandler, VtkHandler
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import argparse
+
+################# CLI ARGUMENT CONFIG ##################
+# Setting up Argument parsing
+parser = argparse.ArgumentParser(description='A Utility package to generate Morphed Mesh VTK from Parameters (PRM) & Coarse Mesh (VTK) file')
+parser.add_argument('--p', default=None, type=str, help="Path to your Paramaters file (e.g. parameters.prm)")
+parser.add_argument('--m', default=None, type=str, help="Path to your Fiber-Mesh VTK File");
+parser.add_argument('--output', default=None, type=str, help="Path to save your Morphed VTK File (e.g. fiber_morphed_mesh.vtk)");
+args = parser.parse_args()
+
+#########################################################
+
+# If arguments are invalid or none then exit the script with error !
+
+if (args.p  == None or args.m == None or args.output == None):
+    parser.print_help()
+    sys.exit(0)
+
+parameter_file_path = args.p
+mesh_file_path = args.m
+output_morphed_vtk_path = args.output
+
+print("GENERATING MORPHED VTK");
+
+
+
 cwd = os.getcwd()
 full_path = os.path.realpath(__file__)
 path, filename = os.path.split(full_path)
@@ -18,14 +44,14 @@ path, filename = os.path.split(full_path)
 
 
 params = RBFParameters()
-params.read_parameters('../tests/test_datasets/parameters.prm')
+params.read_parameters(parameter_file_path)
 
 
 # In[2]:
 
 
 vtk_handler = VtkHandler()
-mesh = vtk_handler.parse('../tests/test_datasets/fiber_mesh.vtk')
+mesh = vtk_handler.parse(mesh_file_path)
 
 
 # In[4]:
@@ -34,4 +60,4 @@ mesh = vtk_handler.parse('../tests/test_datasets/fiber_mesh.vtk')
 rbf = RBF(params, mesh)
 rbf.perform()
 new_mesh_points = rbf.modified_mesh_points
-vtk_handler.write(new_mesh_points, "fiber_mesh_morphed.vtk")
+vtk_handler.write(new_mesh_points, output_morphed_vtk_path)
