@@ -32,7 +32,7 @@ parameter_file_path = args.p
 mesh_file_path = args.m
 output_morphed_vtk_path = args.output
 
-
+print("GENERATING MORPHED VTK");
 
 
 
