@@ -679,7 +679,7 @@ renderView1.ResetCamera()
 
 # create a new 'Threshold'
 threshold1 = Threshold(Input=brain_rotatedvtk)
-threshold1.Scalars = ['CELLS', 'Part ID']
+threshold1.Scalars = ['CELLS', 'PartID']
 threshold1.ThresholdRange = [0.0, 9.0]
 threshold1.AllScalars = 1
 threshold1.UseContinuousCellRange = 0
