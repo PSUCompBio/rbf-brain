@@ -94,7 +94,7 @@ transform1 = Transform(Input=headply)
 transform1.Transform = 'Transform'
 
 # Properties modified on transform1.Transform
-transform1.Transform.Translate =  [0.025397, -0.112455, -0.034450]
+transform1.Transform.Translate =  [-0.003984, -0.112488, -0.046115]
 # show data in view
 transform1Display = Show(transform1, renderView1)
 
@@ -139,7 +139,7 @@ Hide(headply, renderView1)
 renderView1.Update()
 
 # save data
-SaveData(thead, proxy=transform1, ColorArrayName=['POINTS', ''],
+SaveData(thead, proxy=transform1, FileType='Ascii', ColorArrayName=['POINTS', ''],
     LookupTable=None)
 
 #### saving camera placements for all active views
